@@ -12,21 +12,21 @@
       "name": "VAR_STD_KWH",
       "type": "constant",
       "label": "€ / kWh (STD)",
-      "value": "0.1450",
+      "value": "0.1151",
       "description": ""
     },
     {
       "name": "VAR_HC_KWH",
       "type": "constant",
       "label": "€ / kWh (HC)",
-      "value": "0.1228",
+      "value": "0.0903",
       "description": ""
     },
     {
       "name": "VAR_HP_KWH",
       "type": "constant",
       "label": "€ / kWh (HP)",
-      "value": "0.1579",
+      "value": "0.1151",
       "description": ""
     }
   ],
@@ -41,7 +41,7 @@
       "type": "panel",
       "id": "grafana-piechart-panel",
       "name": "Pie Chart",
-      "version": "1.3.4"
+      "version": "1.3.8"
     },
     {
       "type": "panel",
@@ -85,7 +85,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1546803950033,
+  "iteration": 1566330429742,
   "links": [],
   "panels": [
     {
@@ -228,7 +228,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 7,
+        "w": 8,
         "x": 11,
         "y": 0
       },
@@ -349,8 +349,8 @@
       "format": "watth",
       "gridPos": {
         "h": 9,
-        "w": 6,
-        "x": 18,
+        "w": 5,
+        "x": 19,
         "y": 0
       },
       "id": 15,
@@ -358,15 +358,15 @@
       "legend": {
         "header": "",
         "percentage": true,
-        "percentageDecimals": 1,
+        "percentageDecimals": null,
         "show": true,
         "values": true
       },
-      "legendType": "On graph",
+      "legendType": "Under graph",
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "pieType": "pie",
+      "pieType": "donut",
       "repeat": null,
       "strokeWidth": 1,
       "targets": [
@@ -449,6 +449,7 @@
         }
       ],
       "title": "Répartition HC/HP",
+      "transparent": false,
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -592,7 +593,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 7,
+        "w": 8,
         "x": 11,
         "y": 3
       },
@@ -826,7 +827,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 7,
+        "w": 8,
         "x": 11,
         "y": 6
       },
@@ -935,51 +936,38 @@
       "decimals": 1,
       "fill": 1,
       "gridPos": {
-        "h": 16,
+        "h": 9,
         "w": 19,
         "x": 0,
         "y": 9
       },
-      "id": 2,
+      "id": 19,
       "legend": {
         "alignAsTable": true,
         "avg": true,
-        "current": true,
+        "current": false,
         "max": true,
         "min": true,
+        "rightSide": false,
         "show": true,
         "total": true,
         "values": true
       },
       "lines": false,
-      "linewidth": 1,
+      "linewidth": 6,
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "CONTRAT MAX",
-          "bars": false,
-          "color": "rgb(0, 124, 209)",
-          "lines": true
-        },
-        {
-          "alias": "HP"
-        },
-        {
-          "alias": "HC",
-          "color": "#508642"
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "alias": "CONTRAT MAX",
+          "alias": "Heures pleinnes",
           "groupBy": [
             {
               "params": [
@@ -994,46 +982,10 @@
               "type": "fill"
             }
           ],
-          "measurement": "conso_elec",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "max"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "HP",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "conso_elec",
-          "orderByTime": "ASC",
-          "policy": "default",
+          "query": "SELECT mean(\"value\") FROM \"conso_elec\" WHERE (\"heures_creuses\" = '0') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1050,16 +1002,10 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "heures_creuses",
-              "operator": "=",
-              "value": "0"
-            }
-          ]
+          "tags": []
         },
         {
-          "alias": "HC",
+          "alias": "Heures creuses",
           "groupBy": [
             {
               "params": [
@@ -1074,10 +1020,11 @@
               "type": "fill"
             }
           ],
-          "measurement": "conso_elec",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "C",
+          "query": "SELECT mean(\"value\") FROM \"conso_elec\" WHERE (\"heures_creuses\" = '1') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -1130,7 +1077,7 @@
           "show": true
         },
         {
-          "format": "short",
+          "format": "watth",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1235,7 +1182,7 @@
     },
    {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_YOUR_LINKYDB}",
@@ -1265,17 +1212,9 @@
       "paceLength": 10,
       "percentage": false,
       "pointradius": 3,
-      "points": true,
+      "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Watt/Day",
-          "color": "#508642",
-          "dashLength": 20,
-          "dashes": true,
-          "pointradius": 4
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": true,
@@ -1317,17 +1256,31 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "heures_normales",
+              "operator": "=",
+              "value": "0"
+        }
+          ]
         }
       ],
       "thresholds": [
         {
           "colorMode": "critical",
           "fill": true,
-          "line": false,
+          "line": true,
           "op": "gt",
-          "value": 30000,
-          "yaxis": "right"
+          "value": 10000,
+          "yaxis": "left"
+        },
+        {
+          "colorMode": "warning",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 8000,
+          "yaxis": "left"
         }
       ],
       "timeFrom": null,
@@ -1467,6 +1420,5 @@
   "timezone": "",
   "title": "Home Power Usage",
   "uid": "V5dZu6yik",
-  "version": 16
+  "version": 4
 }
-
