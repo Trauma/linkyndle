@@ -147,7 +147,7 @@ if __name__ == "__main__":
                 for hc in params['hc']:
                     startTS = _getDateTS(t.year,t.month,t.day,hc['start']['h'],hc['start']['m'])
                     endTS =   _getDateTS(t.year,t.month,t.day,hc['end']['h'],hc['end']['m'])
-                    if (startTS <= tres) and (endTS >= tres):
+                    if (startTS <= tres+1) and (endTS >= tres-1):
                         logging.debug("Found HC, set flag for DT : ", t.strftime('%Y-%m-%dT%H:%M:%SZ'))
                         creuses = 1
                     else:
