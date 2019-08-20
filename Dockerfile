@@ -2,9 +2,7 @@ FROM python:3
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+COPY .params linky*.py requirements.txt /usr/src/app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-
-CMD [ "python", "./linkynflux.py" ]
+ENTRYPOINT [ "python", "./linkynflux.py" ]
