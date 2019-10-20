@@ -9,13 +9,6 @@
       "pluginName": "InfluxDB"
     },
     {
-      "name": "VAR_STD_KWH",
-      "type": "constant",
-      "label": "€ / kWh (STD)",
-      "value": "0.1151",
-      "description": ""
-    },
-    {
       "name": "VAR_HC_KWH",
       "type": "constant",
       "label": "€ / kWh (HC)",
@@ -27,6 +20,13 @@
       "type": "constant",
       "label": "€ / kWh (HP)",
       "value": "0.1151",
+      "description": ""
+    },
+    {
+      "name": "VAR_TAX_RATE",
+      "type": "constant",
+      "label": "€ / kWh (HP)",
+      "value": "1.687",
       "description": ""
     }
   ],
@@ -91,7 +91,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1571579301120,
+  "iteration": 1571608372364,
   "links": [
     {
       "icon": "cloud",
@@ -125,7 +125,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 11,
+        "w": 10,
         "x": 0,
         "y": 0
       },
@@ -247,8 +247,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 8,
-        "x": 11,
+        "w": 9,
+        "x": 10,
         "y": 0
       },
       "hideTimeOverride": false,
@@ -519,7 +519,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 11,
+        "w": 10,
         "x": 0,
         "y": 3
       },
@@ -641,8 +641,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 8,
-        "x": 11,
+        "w": 9,
+        "x": 10,
         "y": 3
       },
       "hideTimeOverride": false,
@@ -710,10 +710,11 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "conso_elec",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT sum(\"value\")  / 1000 * $HC_kwH  FROM \"conso_elec\" WHERE  (\"heures_creuses\" = '1') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT sum(\"value\") / 1000 * $HC_kwH  FROM \"conso_elec\" WHERE  (\"heures_creuses\" = '1') AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -788,7 +789,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 11,
+        "w": 10,
         "x": 0,
         "y": 6
       },
@@ -889,6 +890,7 @@
       "datasource": "${DS_LINKY}",
       "decimals": 2,
       "defaultColor": "rgb(117, 117, 117)",
+      "description": "",
       "format": "currencyEUR",
       "gauge": {
         "maxValue": 100,
@@ -899,8 +901,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 8,
-        "x": 11,
+        "w": 4,
+        "x": 10,
         "y": 6
       },
       "id": 21,
@@ -1030,7 +1032,173 @@
         }
       ],
       "thresholds": [],
-      "title": "Cout conso totale",
+      "title": "Cout conso totale net",
+      "tooltip": {
+        "show": false
+      },
+      "type": "blackmirror1-singlestat-math-panel",
+      "valueFontSize": "170%",
+      "valueMappingColorBackground": "#767171",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "No data",
+          "value": "null"
+        }
+      ],
+      "valueName": "total"
+    },
+    {
+      "cacheTimeout": null,
+      "circleBackground": false,
+      "colorBackground": false,
+      "colorValue": false,
+      "datasource": "${DS_LINKY}",
+      "decimals": 2,
+      "defaultColor": "rgb(117, 117, 117)",
+      "description": "",
+      "format": "currencyEUR",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 14,
+        "y": 6
+      },
+      "id": 23,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "math": "(HC+HP)",
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": "h",
+      "sortOrder": "asc",
+      "sortOrderOptions": [
+        {
+          "text": "Ascending",
+          "value": "asc"
+        },
+        {
+          "text": "Descending",
+          "value": "desc"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "alias": "HP",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\")  / 1000 * $HP_kwH * $tax_rate FROM \"conso_elec\" WHERE  (\"heures_creuses\" = '0') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "HC",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\")  / 1000 * $HC_kwH * $tax_rate FROM \"conso_elec\" WHERE  (\"heures_creuses\" = '1') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "title": "Cout conso totale brut",
       "tooltip": {
         "show": false
       },
@@ -1129,9 +1297,9 @@
           ],
           "tags": [
             {
-              "key": "heures_pleines",
+              "key": "heures_creuses",
               "operator": "=",
-              "value": "1"
+              "value": "0"
             }
           ]
         },
@@ -1240,8 +1408,8 @@
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 0,
-        "desc": false
+        "col": 1,
+        "desc": true
       },
       "styles": [
         {
@@ -1323,7 +1491,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 16,
+        "h": 7,
         "w": 19,
         "x": 0,
         "y": 18
@@ -1373,11 +1541,12 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "conso_elec",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT sum(\"value\") FROM \"conso_elec\" WHERE $timeFilter GROUP BY time(1d) fill(null) tz('Europe/Paris')",
-          "rawQuery": false,
+          "query": "SELECT sum(\"value\") FROM \"conso_elec\" WHERE $timeFilter GROUP BY time(1d) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1399,6 +1568,12 @@
               "key": "heures_normales",
               "operator": "=",
               "value": "0"
+            },
+            {
+              "condition": "OR",
+              "key": "heures_creuses",
+              "operator": "=",
+              "value": "1"
             }
           ]
         }
@@ -1480,24 +1655,6 @@
     "list": [
       {
         "current": {
-          "value": "${VAR_STD_KWH}",
-          "text": "${VAR_STD_KWH}"
-        },
-        "hide": 2,
-        "label": "€ / kWh (STD)",
-        "name": "STD_kwH",
-        "options": [
-          {
-            "value": "${VAR_STD_KWH}",
-            "text": "${VAR_STD_KWH}"
-          }
-        ],
-        "query": "${VAR_STD_KWH}",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
           "value": "${VAR_HC_KWH}",
           "text": "${VAR_HC_KWH}"
         },
@@ -1529,6 +1686,24 @@
           }
         ],
         "query": "${VAR_HP_KWH}",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "value": "${VAR_TAX_RATE}",
+          "text": "${VAR_TAX_RATE}"
+        },
+        "hide": 2,
+        "label": "€ / kWh (HP)",
+        "name": "tax_rate",
+        "options": [
+          {
+            "value": "${VAR_TAX_RATE}",
+            "text": "${VAR_TAX_RATE}"
+          }
+        ],
+        "query": "${VAR_TAX_RATE}",
         "skipUrlSync": false,
         "type": "constant"
       }
@@ -1565,7 +1740,7 @@
     ]
   },
   "timezone": "",
-  "title": "Home Power Usage",
+  "title": "Home power usage",
   "uid": "V5dZu6yif",
-  "version": 10
+  "version": 15
 }
