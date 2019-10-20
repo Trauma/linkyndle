@@ -32,10 +32,16 @@
   ],
   "__requires": [
     {
+      "type": "panel",
+      "id": "blackmirror1-singlestat-math-panel",
+      "name": "Singlestat Math",
+      "version": "1.1.7"
+    },
+    {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "5.3.2"
+      "version": "6.4.2"
     },
     {
       "type": "panel",
@@ -47,25 +53,25 @@
       "type": "panel",
       "id": "graph",
       "name": "Graph",
-      "version": "5.0.0"
+      "version": ""
     },
     {
       "type": "datasource",
       "id": "influxdb",
       "name": "InfluxDB",
-      "version": "5.0.0"
+      "version": "1.0.0"
     },
     {
       "type": "panel",
       "id": "singlestat",
       "name": "Singlestat",
-      "version": "5.0.0"
+      "version": ""
     },
     {
       "type": "panel",
       "id": "table",
       "name": "Table",
-      "version": "5.0.0"
+      "version": ""
     }
   ],
   "annotations": {
@@ -85,7 +91,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566330429742,
+  "iteration": 1571576576862,
   "links": [],
   "panels": [
     {
@@ -131,6 +137,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -209,6 +216,7 @@
     },
     {
       "cacheTimeout": null,
+      "circleBackground": false,
       "colorBackground": false,
       "colorValue": false,
       "colors": [
@@ -247,9 +255,11 @@
           "value": 2
         }
       ],
+      "math": "",
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -259,6 +269,17 @@
           "from": "null",
           "text": "N/A",
           "to": "null"
+        }
+      ],
+      "sortOrder": "asc",
+      "sortOrderOptions": [
+        {
+          "text": "Ascending",
+          "value": "asc"
+        },
+        {
+          "text": "Descending",
+          "value": "desc"
         }
       ],
       "sparkline": {
@@ -321,11 +342,24 @@
           ]
         }
       ],
-      "thresholds": "576000,1008000",
+      "thresholds": [
+        {
+          "color": "#299c46",
+          "value": 576000
+        },
+        {
+          "color": "rgba(237, 129, 40, 0.89)",
+          "value": 1008000
+        }
+      ],
       "timeFrom": null,
       "title": "Heures Pleines ($HP_kwH€/kWh/6k)",
-      "type": "singlestat",
+      "tooltip": {
+        "show": true
+      },
+      "type": "blackmirror1-singlestat-math-panel",
       "valueFontSize": "170%",
+      "valueMappingColorBackground": "#767171",
       "valueMaps": [
         {
           "op": "=",
@@ -366,6 +400,7 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
+      "options": {},
       "pieType": "donut",
       "repeat": null,
       "strokeWidth": 1,
@@ -449,7 +484,6 @@
         }
       ],
       "title": "Répartition HC/HP",
-      "transparent": false,
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -496,6 +530,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -574,6 +609,7 @@
     },
     {
       "cacheTimeout": null,
+      "circleBackground": false,
       "colorBackground": false,
       "colorValue": false,
       "colors": [
@@ -612,9 +648,11 @@
           "value": 2
         }
       ],
+      "math": "",
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -624,6 +662,17 @@
           "from": "null",
           "text": "N/A",
           "to": "null"
+        }
+      ],
+      "sortOrder": "asc",
+      "sortOrderOptions": [
+        {
+          "text": "Ascending",
+          "value": "asc"
+        },
+        {
+          "text": "Descending",
+          "value": "desc"
         }
       ],
       "sparkline": {
@@ -679,11 +728,24 @@
           "tags": []
         }
       ],
-      "thresholds": "576000,1008000",
+      "thresholds": [
+        {
+          "color": "#299c46",
+          "value": 576000
+        },
+        {
+          "color": "rgba(237, 129, 40, 0.89)",
+          "value": 1008000
+        }
+      ],
       "timeFrom": null,
       "title": "Heures Creuses ($HC_kwH€/kWh/6k)",
-      "type": "singlestat",
+      "tooltip": {
+        "show": true
+      },
+      "type": "blackmirror1-singlestat-math-panel",
       "valueFontSize": "170%",
+      "valueMappingColorBackground": "#767171",
       "valueMaps": [
         {
           "op": "=",
@@ -736,6 +798,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -794,7 +857,7 @@
       ],
       "thresholds": "576000,1008000",
       "timeFrom": null,
-      "title": "Total Period",
+      "title": "Total Periode",
       "type": "singlestat",
       "valueFontSize": "170%",
       "valueMaps": [
@@ -808,18 +871,15 @@
     },
     {
       "cacheTimeout": null,
+      "circleBackground": false,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
       "datasource": "${DS_YOUR_LINKYDB}",
       "decimals": 2,
+      "defaultColor": "rgb(117, 117, 117)",
       "format": "currencyEUR",
       "gauge": {
-        "maxValue": 144000,
+        "maxValue": 100,
         "minValue": 0,
         "show": false,
         "thresholdLabels": false,
@@ -831,8 +891,7 @@
         "x": 11,
         "y": 6
       },
-      "hideTimeOverride": false,
-      "id": 13,
+      "id": 21,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -846,9 +905,11 @@
           "value": 2
         }
       ],
+      "math": "HC+HP",
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -860,6 +921,19 @@
           "to": "null"
         }
       ],
+      "repeat": null,
+      "repeatDirection": "h",
+      "sortOrder": "asc",
+      "sortOrderOptions": [
+        {
+          "text": "Ascending",
+          "value": "asc"
+        },
+        {
+          "text": "Descending",
+          "value": "desc"
+        }
+      ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -869,6 +943,7 @@
       "tableColumn": "",
       "targets": [
         {
+          "alias": "HP",
           "groupBy": [
             {
               "params": [
@@ -883,12 +958,47 @@
               "type": "fill"
             }
           ],
-          "measurement": "conso_elec",
+          "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT sum(\"value\")  / 1000 * $STD_kwH FROM \"conso_elec\" WHERE  $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT sum(\"value\")  / 1000 * $HP_kwH  FROM \"conso_elec\" WHERE  (\"heures_creuses\" = '0') AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "HC",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\")  / 1000 * $HC_kwH  FROM \"conso_elec\" WHERE  (\"heures_creuses\" = '1') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -900,28 +1010,25 @@
               },
               {
                 "params": [],
-                "type": "sum"
-              },
-              {
-                "params": [
-                  " / 100"
-                ],
-                "type": "math"
+                "type": "mean"
               }
             ]
           ],
           "tags": []
         }
       ],
-      "thresholds": "576000,1008000",
-      "timeFrom": null,
-      "title": "Heures Normales ($STD_kwH€/kWh/6k)",
-      "type": "singlestat",
+      "thresholds": [],
+      "title": "Cout conso totale",
+      "tooltip": {
+        "show": false
+      },
+      "type": "blackmirror1-singlestat-math-panel",
       "valueFontSize": "170%",
+      "valueMappingColorBackground": "#767171",
       "valueMaps": [
         {
           "op": "=",
-          "text": "N/A",
+          "text": "No data",
           "value": "null"
         }
       ],
@@ -935,6 +1042,7 @@
       "datasource": "${DS_YOUR_LINKYDB}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 9,
         "w": 19,
@@ -942,6 +1050,7 @@
         "y": 9
       },
       "id": 19,
+      "interval": "30m",
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -954,9 +1063,12 @@
         "values": true
       },
       "lines": false,
-      "linewidth": 6,
+      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -982,10 +1094,11 @@
               "type": "fill"
             }
           ],
+          "measurement": "conso_elec",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"conso_elec\" WHERE (\"heures_creuses\" = '0') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
+          "query": "SELECT mean(\"value\") FROM \"measurement\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1002,10 +1115,16 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "heures_pleines",
+              "operator": "=",
+              "value": "1"
+            }
+          ]
         },
         {
-          "alias": "Heures creuses",
+          "alias": "Heures pleinnes",
           "groupBy": [
             {
               "params": [
@@ -1020,10 +1139,11 @@
               "type": "fill"
             }
           ],
+          "measurement": "conso_elec",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"conso_elec\" WHERE (\"heures_creuses\" = '1') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
+          "query": "SELECT mean(\"value\") FROM \"measurement\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": false,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -1051,6 +1171,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Electricity Consumption - in (k)Wh",
       "tooltip": {
@@ -1102,6 +1223,7 @@
       },
       "id": 8,
       "links": [],
+      "options": {},
       "pageSize": null,
       "scroll": true,
       "showHeader": true,
@@ -1148,7 +1270,7 @@
             },
             {
               "params": [
-                "null"
+                "none"
               ],
               "type": "fill"
             }
@@ -1180,7 +1302,7 @@
       "transparent": true,
       "type": "table"
     },
-   {
+    {
       "aliasColors": {},
       "bars": true,
       "dashLength": 10,
@@ -1188,13 +1310,15 @@
       "datasource": "${DS_YOUR_LINKYDB}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 16,
         "w": 19,
         "x": 0,
-        "y": 25
+        "y": 18
       },
       "id": 17,
+      "interval": "1d",
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -1209,6 +1333,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 3,
@@ -1239,7 +1366,7 @@
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT sum(\"value\") FROM \"conso_elec\" WHERE $timeFilter GROUP BY time(1d) fill(null) tz('Europe/Paris')",
-          "rawQuery": true,
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1261,7 +1388,7 @@
               "key": "heures_normales",
               "operator": "=",
               "value": "0"
-        }
+            }
           ]
         }
       ],
@@ -1271,7 +1398,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 10000,
+          "value": 30000,
           "yaxis": "left"
         },
         {
@@ -1279,12 +1406,21 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 8000,
+          "value": 20000,
           "yaxis": "left"
         }
       ],
       "timeFrom": null,
-      "timeRegions": [],
+      "timeRegions": [
+        {
+          "colorMode": "gray",
+          "fill": true,
+          "fillColor": "rgba(234, 112, 112, 0.12)",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time"
+        }
+      ],
       "timeShift": null,
       "title": "Electricity Consumption - per Day (k)Wh",
       "tooltip": {
@@ -1292,7 +1428,6 @@
         "sort": 0,
         "value_type": "individual"
       },
-      "transparent": true,
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -1326,8 +1461,8 @@
       }
     }
   ],
-  "refresh": "1d",
-  "schemaVersion": 16,
+  "refresh": false,
+  "schemaVersion": 20,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1389,8 +1524,8 @@
     ]
   },
   "time": {
-    "from": "now-8d/d",
-    "to": "now-1d/d"
+    "from": "now-1M/M",
+    "to": "now-1M/M"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1419,6 +1554,6 @@
   },
   "timezone": "",
   "title": "Home Power Usage",
-  "uid": "V5dZu6yik",
-  "version": 4
+  "uid": "V5dZu6yif",
+  "version": 5
 }
